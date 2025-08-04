@@ -42,12 +42,22 @@ public class ApiUtils {
     }
 
     public static JsonObject parseJson(String responseBody) {
-        return JsonParser.parseString(responseBody).getAsJsonObject();
+        try {
+            return JsonParser.parseString(responseBody)
+                    .getAsJsonObject();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse response body as JSON object: " + e.getMessage(), e);
+        }
     }
 
     private static String buildUri(String country, String postal, boolean encode) {
-        String c = encode ? URLEncoder.encode(country, StandardCharsets.UTF_8) : country;
-        String p = encode ? URLEncoder.encode(postal, StandardCharsets.UTF_8) : postal;
-        return String.format("http://api.zippopotam.us/%s/%s", c, p);
+        try {
+            String c = encode ? URLEncoder.encode(country, StandardCharsets.UTF_8) : country;
+            String p = encode ? URLEncoder.encode(postal, StandardCharsets.UTF_8) : postal;
+            return String.format("http://api.zippopotam.us/%s/%s", c, p);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to build URI with given input", e);
+        }
+
     }
 }
