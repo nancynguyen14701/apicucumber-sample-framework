@@ -1,3 +1,4 @@
+logs/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -24,3 +25,5 @@ target/
 
 ### Mac OS ###
 .DS_Store
+
+### Folders ###
