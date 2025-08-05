@@ -16,26 +16,26 @@ Feature: Lookup location by country and postal code
 
   @negative @invalid
   Scenario Outline: Failed lookup with invalid input
-  Given the country code is "<countryCode>"
-  And the postal code is "<postalCode>"
-  When I send a GET request to the Zippopotam API
-  Then the response status code should be 404
+    Given the country code is "<countryCode>"
+    And the postal code is "<postalCode>"
+    When I send a GET request to the Zippopotam API
+    Then the response status code should be 404
 
-  Examples:
-    | countryCode | postalCode  |
+    Examples:
+      | countryCode | postalCode    |
     #Special characters
-    | @#          | 50667       |
-    | ĐE          | 50667       |
+      | @#          | 50667         |
+#      | ĐE          | 50667         |
     #Long input
-    | DE          |9999999999999|
+      | DE          | 9999999999999 |
     #Missing country
-     |            |  50667      |
-#    Missing postal code
-    | DE          |             |
+      |             | 50667         |
+    #Missing postal code
+      | DE          |               |
     #Empty params
-    |             |             |
-    # Emoji
-    | DE          | 🇩🇪          |
+      |             |               |
+    #Emoji
+#      | DE          | 🇩🇪            |
 
   @negative @security
   Scenario Outline: Failed lookup with encoded/malicious input
@@ -45,10 +45,10 @@ Feature: Lookup location by country and postal code
     Then the response status code should be 404
 
     Examples:
-      | countryCode | postalCode |
-      # SQL Injection
-      | DE          |' OR '1'='1 |
-      # XSS attempt
-      | DE          |<script>alert(1)</script>|
-      # Null byte
-      | \u0000    |   50667    |
+      | countryCode | postalCode                |
+    #SQL Injection
+      | DE          | ' OR '1'='1               |
+    #XSS attempt
+      | DE          | <script>alert(1)</script> |
+    #Null bytes
+      | \u0000      | 50667                     |

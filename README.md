@@ -49,21 +49,22 @@ mvn -v
 
 ---
 
-### ⚙️ Build the Project
-
-To compile the code and download all necessary dependencies:
-
-```bash
-mvn clean install
-```
----
-
 ### 🧪 Run the Tests
 
 #### Option 1: From the Command Line
 
 ```bash
-mvn test
+# navigate to the project folder
+cd apicucumber-sample-framework
+
+# run all tests
+ mvn test -Dtest=CucumberTestRunner
+ 
+# run happy cases
+ mvn test -Dtest=CucumberTestRunner -Dcucumber.filter.tags="@happy" -Dcucumber.plugin=pretty
+ 
+# run negative cases
+ mvn test -Dtest=CucumberTestRunner -Dcucumber.filter.tags="@negative" -Dcucumber.plugin=pretty
 ```
 
 #### Option 2: From the IDE
@@ -71,6 +72,7 @@ mvn test
 1. Open the file: `CucumberTestRunner.java`
 2. Click the green Run button next to the class or method declaration
 3. View results in the console or test output panel
+
 ## 📦 Dependencies
 
 Key libraries used:
